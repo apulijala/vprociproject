@@ -76,12 +76,5 @@ pipeline{
             }
     }
 
-stage('UploadArtifact') {
-
-    steps {
-
-            echo "Upload Artifcats"
-    }
- }
-    
+ 
 }
