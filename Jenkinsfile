@@ -1,5 +1,5 @@
 pipeline{
-    
+
     agent any 
     tools {
         // Whereever maven is there use this. 
@@ -51,10 +51,14 @@ pipeline{
     }
 
     stage('Sonar Analysis') {
+
         environment {
             scannerHome = tool "${SONARSCANNER}"
         }
             steps {
+                
+            withSonarQubeEnv("${SONARSERVER}") {
+
                 sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
                 -Dsonar.projectName=vprofile \
                 -Dsonar.projectVersion=1.0 \
@@ -65,7 +69,10 @@ pipeline{
                 -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
                 '''
 
-                sh 'mvn -s settings.xml checkstyle:checkstyle'
+
+                }
+
+                
             }
     }
  }
