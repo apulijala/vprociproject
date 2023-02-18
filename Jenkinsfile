@@ -13,7 +13,7 @@ pipeline{
         SNAP_REPO='vprofile-snapshot'
         NEXUSIP='172.31.8.5'
         NEXUSPORT='8081'
-        NEXUS_GRP_REPO ='vpro-maven-group'
+    
     }
     stages{
         stage("Build"){
