@@ -7,7 +7,7 @@ pipeline{
     environment {
         CENTRAL_REPO='vpro-maven-central'
         NEXUS_GRP_REPO='vpro-maven-group'
-        NEXUS-PASS='Dattatreya2!'
+        NEXUS_PASS='Dattatreya2!'
         NEXUS_USER='admin'
         RELEASE_REPO='vprofile-release'
         SNAP_REPO='vprofile-snapshot'
