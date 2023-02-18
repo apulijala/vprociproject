@@ -15,7 +15,8 @@ pipeline{
         NEXUSPORT='8081'
     
     }
-    stages{
+    stages {
+
         stage("Build"){
             steps{
                 sh 'mvn -s settings.xml -DskipTests install'
@@ -33,7 +34,7 @@ pipeline{
            
            
         }
-    }
+
     stage('Test') {
         steps {
             sh 'mvn test'
@@ -45,6 +46,8 @@ pipeline{
             steps {
                 sh 'mvn checkstyle:checkstyle'
             }
+    }
+
     }
     
 }
