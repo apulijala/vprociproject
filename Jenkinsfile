@@ -74,7 +74,7 @@ pipeline {
     } 
 
     stage("Deploy Artefact to Jenkins") {
-
+    steps {
     nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
@@ -94,7 +94,7 @@ pipeline {
     }
 
     }
-    
+}
 
    
  
