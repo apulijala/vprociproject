@@ -1,5 +1,4 @@
 pipeline{
-
     agent any 
     tools {
         // Whereever maven is there use this. 
