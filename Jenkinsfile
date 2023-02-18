@@ -1,6 +1,9 @@
 pipeline{
+    
     agent any 
     tools {
+        // Whereever maven is there use this. 
+        // Use this for jdk. 
         maven "MAVEN3"
         jdk "OracleJDK8"
     }
@@ -13,6 +16,8 @@ pipeline{
         SNAP_REPO='vprofile-snapshot'
         NEXUSIP='172.31.8.5'
         NEXUSPORT='8081'
+        SONARSERVER = 'sonarserver'
+        SONARSCANNER = 'sonarscanner'
     
     }
     stages {
@@ -29,9 +34,6 @@ pipeline{
                     archiveArtifacts artifacts: '**/*.war'
                 }
             }
-
-             
-           
            
         }
 
@@ -44,10 +46,28 @@ pipeline{
 
     stage('Checkstyle Code Analysis') {
             steps {
-                sh 'mvn checkstyle:checkstyle'
+                sh 'mvn -s settings.xml checkstyle:checkstyle'
             }
     }
 
+    stage('Sonar Analysis') {
+        environment {
+            scannerHome = tool "${SONARSCANNER}"
+        }
+            steps {
+                sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
+                -Dsonar.projectName=vprofile \
+                -Dsonar.projectVersion=1.0 \
+                -Dsonar.sources=src/ \
+                -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/   \
+                -Donar.junit.reportsPath=target/surefire-reports/ \
+                -Dsonar.jacoco.reportPath=target/jacoco.exec \
+                -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+                '''
+
+                sh 'mvn -s settings.xml checkstyle:checkstyle'
+            }
     }
+ }
     
 }
