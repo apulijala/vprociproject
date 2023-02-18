@@ -76,27 +76,11 @@ pipeline{
             }
     }
 
-    stage('UploadArtifact') {
-            steps {
+stage('UploadArtifact') {
 
-            nexusArtifactUploader (
+    steps {
 
-                nexusVersion: 'nexus3',
-                protocol: 'http',
-                nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
-                groupId: 'QA',
-                version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}", // Jenkins Inbulit variable.
-                repository: "${RELEASE_REPO}",
-                credentialsId: 'nexuslogin',
-                artifacts: [
-
-                    artifactId: 'vproapp',
-                    classifer: '',
-                    file: 'target/vprofile-v2.war',
-                    type: 'war'
-                ]
-               
-            )
+            echo "Upload Artifcats"
     }
  }
     
